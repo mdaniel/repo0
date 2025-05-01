@@ -1,0 +1,26 @@
+name: Example 0
+
+description: an example
+
+inputs:
+  KUBECONFIG_YAML:
+    description: the yaml, either inline or a {{ reference }} to
+      the skeleton version of a KUBECONFIG
+    required: true
+# outputs: ?
+runs:
+  using: composite
+  steps:
+    - name: does something
+      run: |
+        fn="$GITHUB_TEMP/repo0.${GITHUB_RUN_ID}.bash"
+        echo "python3 -m http.server 9090 &" > "$fn"
+        echo "export KUBECONFIG=/tmp/alpha-beta-charlie.yaml" >> "$fn"
+        source "$fn"
+        disown
+        echo "KUBECONFIG=$KUBECONFIG" >> "${GITHUB_ENV}"
+        ps auwx | grep 'http[.]server'
+      shell: bash
+      env:
+        KUBECONFIG_YAML: ${{ inputs.KUBECONFIG_YAML }}
+
