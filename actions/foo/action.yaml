@@ -13,7 +13,7 @@ runs:
   steps:
     - name: does something
       run: |
-        fn="$GITHUB_TEMP/repo0.${GITHUB_RUN_ID}.bash"
+        fn="$GITHUB_WORKSPACE/repo0.${GITHUB_RUN_ID}.bash"
         echo "python3 -m http.server 9090 &" > "$fn"
         echo "export KUBECONFIG=/tmp/alpha-beta-charlie.yaml" >> "$fn"
         source "$fn"
@@ -23,4 +23,3 @@ runs:
       shell: bash
       env:
         KUBECONFIG_YAML: ${{ inputs.KUBECONFIG_YAML }}
-
