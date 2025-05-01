@@ -13,9 +13,9 @@ runs:
   steps:
     - name: does something
       run: |
-        fn="$GITHUB_WORKSPACE/repo0.${GITHUB_RUN_ID}.bash"
+        fn="$RUNNER_TEMP/repo0.${GITHUB_RUN_ID}.bash"
         echo "python3 -m http.server 9090 &" > "$fn"
-        echo "export KUBECONFIG=/tmp/alpha-beta-charlie.yaml" >> "$fn"
+        echo "export KUBECONFIG=$RUNNER_TEMP/alpha-beta-charlie.yaml" >> "$fn"
         source "$fn"
         disown
         echo "KUBECONFIG=$KUBECONFIG" >> "${GITHUB_ENV}"
