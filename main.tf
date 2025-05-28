@@ -52,7 +52,8 @@ resource "github_repository_environment" "env" {
   for_each    = toset(var.environments)
   repository  = var.the_repo
   environment = "env/${each.key}"
-  wait_timer  = 10000
+  # dunno what the use case is for this
+  # wait_timer  = 1440  # minutes
   reviewers {
     users = [data.github_user.current.id]
   }
