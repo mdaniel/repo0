@@ -27,7 +27,7 @@ variable "env_to_branch" {
   default = {
     dev     = "main"
     staging = "staging"
-    prod    = "main"
+    prod    = "prod"
     demo    = "demo"
   }
 }
